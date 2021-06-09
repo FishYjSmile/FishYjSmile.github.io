@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="js/anime.min.js"></script>
+    <script src="js/Sakura.min.js"></script>
+    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+    <script src="js/index.js"></script>
+
+    
+</head>
+<body>
+    <!-- 点击爆炸效果-->
+<canvas class="fireworks" style="position: fixed; left: 0px; top: 0px; z-index: 1; pointer-events: none; width: 1440px; height: 451px;" width="2880" height="902"></canvas>
+<script>
+       "use strict";function updateCoords(e){pointerX=(e.clientX||e.touches[0].clientX)-canvasEl.getBoundingClientRect().left,pointerY=e.clientY||e.touches[0].clientY-canvasEl.getBoundingClientRect().top}function setParticuleDirection(e){var t=anime.random(0,360)*Math.PI/180,a=anime.random(50,180),n=[-1,1][anime.random(0,1)]*a;return{x:e.x+n*Math.cos(t),y:e.y+n*Math.sin(t)}}function createParticule(e,t){var a={};return a.x=e,a.y=t,a.color=colors[anime.random(0,colors.length-1)],a.radius=anime.random(16,32),a.endPos=setParticuleDirection(a),a.draw=function(){ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.fillStyle=a.color,ctx.fill()},a}function createCircle(e,t){var a={};return a.x=e,a.y=t,a.color="#F00",a.radius=0.1,a.alpha=0.5,a.lineWidth=6,a.draw=function(){ctx.globalAlpha=a.alpha,ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.lineWidth=a.lineWidth,ctx.strokeStyle=a.color,ctx.stroke(),ctx.globalAlpha=1},a}function renderParticule(e){for(var t=0;t<e.animatables.length;t++){e.animatables[t].target.draw()}}function animateParticules(e,t){for(var a=createCircle(e,t),n=[],i=0;i<numberOfParticules;i++){n.push(createParticule(e,t))}anime.timeline().add({targets:n,x:function(e){return e.endPos.x},y:function(e){return e.endPos.y},radius:0.1,duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule}).add({targets:a,radius:anime.random(80,160),lineWidth:0,alpha:{value:0,easing:"linear",duration:anime.random(600,800)},duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule,offset:0})}function debounce(e,t){var a;return function(){var n=this,i=arguments;clearTimeout(a),a=setTimeout(function(){e.apply(n,i)},t)}}var canvasEl=document.querySelector(".fireworks");if(canvasEl){var ctx=canvasEl.getContext("2d"),numberOfParticules=30,pointerX=0,pointerY=0,tap="mousedown",colors=["#FF1461","#18FF92","#5A87FF","#FBF38C"],setCanvasSize=debounce(function(){canvasEl.width=2*window.innerWidth,canvasEl.height=2*window.innerHeight,canvasEl.style.width=window.innerWidth+"px",canvasEl.style.height=window.innerHeight+"px",canvasEl.getContext("2d").scale(2,2)},500),render=anime({duration:1/0,update:function(){ctx.clearRect(0,0,canvasEl.width,canvasEl.height)}});document.addEventListener(tap,function(e){"sidebar"!==e.target.id&&"toggle-sidebar"!==e.target.id&&"A"!==e.target.nodeName&&"IMG"!==e.target.nodeName&&(render.play(),updateCoords(e),animateParticules(pointerX,pointerY))},!1),setCanvasSize(),window.addEventListener("resize",setCanvasSize,!1)}"use strict";function updateCoords(e){pointerX=(e.clientX||e.touches[0].clientX)-canvasEl.getBoundingClientRect().left,pointerY=e.clientY||e.touches[0].clientY-canvasEl.getBoundingClientRect().top}function setParticuleDirection(e){var t=anime.random(0,360)*Math.PI/180,a=anime.random(50,180),n=[-1,1][anime.random(0,1)]*a;return{x:e.x+n*Math.cos(t),y:e.y+n*Math.sin(t)}}function createParticule(e,t){var a={};return a.x=e,a.y=t,a.color=colors[anime.random(0,colors.length-1)],a.radius=anime.random(16,32),a.endPos=setParticuleDirection(a),a.draw=function(){ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.fillStyle=a.color,ctx.fill()},a}function createCircle(e,t){var a={};return a.x=e,a.y=t,a.color="#F00",a.radius=0.1,a.alpha=0.5,a.lineWidth=6,a.draw=function(){ctx.globalAlpha=a.alpha,ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.lineWidth=a.lineWidth,ctx.strokeStyle=a.color,ctx.stroke(),ctx.globalAlpha=1},a}function renderParticule(e){for(var t=0;t<e.animatables.length;t++){e.animatables[t].target.draw()}}function animateParticules(e,t){for(var a=createCircle(e,t),n=[],i=0;i<numberOfParticules;i++){n.push(createParticule(e,t))}anime.timeline().add({targets:n,x:function(e){return e.endPos.x},y:function(e){return e.endPos.y},radius:0.1,duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule}).add({targets:a,radius:anime.random(80,160),lineWidth:0,alpha:{value:0,easing:"linear",duration:anime.random(600,800)},duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule,offset:0})}function debounce(e,t){var a;return function(){var n=this,i=arguments;clearTimeout(a),a=setTimeout(function(){e.apply(n,i)},t)}}var canvasEl=document.querySelector(".fireworks");if(canvasEl){var ctx=canvasEl.getContext("2d"),numberOfParticules=30,pointerX=0,pointerY=0,tap="mousedown",colors=["#FF1461","#18FF92","#5A87FF","#FBF38C"],setCanvasSize=debounce(function(){canvasEl.width=2*window.innerWidth,canvasEl.height=2*window.innerHeight,canvasEl.style.width=window.innerWidth+"px",canvasEl.style.height=window.innerHeight+"px",canvasEl.getContext("2d").scale(2,2)},500),render=anime({duration:1/0,update:function(){ctx.clearRect(0,0,canvasEl.width,canvasEl.height)}});document.addEventListener(tap,function(e){"sidebar"!==e.target.id&&"toggle-sidebar"!==e.target.id&&"A"!==e.target.nodeName&&"IMG"!==e.target.nodeName&&(render.play(),updateCoords(e),animateParticules(pointerX,pointerY))},!1),setCanvasSize(),window.addEventListener("resize",setCanvasSize,!1)};
+    
+</script>
+
+    <div class="body">
+        <!-- 导航 -->
+        <div class="nav">
+            <div class="nav-logo"><img src="img/d3331a29059e81cedc221e60b4e2032e.png" alt="" width="120%"></div>
+            <div class="QR"></div>
+            <ul class="nav-menu">
+                <li class="nav-menu-1"><a href="javascript:;" class="menu-1">ABOUT</a></li>
+                <li class="nav-menu-2" onmouseover="showSecondeMenu(0)" onmouseout="showSecondeMenuDowm(0)"><a href="javascript:;" class="menu-2" >ABOUT</a></li>
+                <li class="nav-menu-3" onmouseover="showSecondeMenu(1)" onmouseout="showSecondeMenuDowm(1)"><a href="javascript:;" class="menu-3" >ABOUT</a></li>
+                <li class="nav-menu-4" onmouseover="showSecondeMenu(2)" onmouseout="showSecondeMenuDowm(2)"><a href="javascript:;" class="menu-4" >ABOUT</a></li>
+            </ul>
+            <div class="nav-menu-drop-1" id="nav-menu-drop-0" name="nav-menu-drop-div" onmouseover="showSecondeMenu(0)" onmouseout="showSecondeMenuDowm(0)">
+                <div class="menu-drop-1-1 menu-drop-0-0"><span>二级菜单</span></div>
+                <div class="menu-drop-1-2 menu-drop-0-1"><span>二级菜单</span></div>
+                <div class="menu-drop-1-3 menu-drop-0-2"><span>二级菜单</span></div>
+                <div class="menu-drop-1-4 menu-drop-0-3"><span>二级菜单</span></div>
+            </div>
+            <div class="nav-menu-drop-2" id="nav-menu-drop-0" name="nav-menu-drop-div" onmouseover="showSecondeMenu(1)" onmouseout="showSecondeMenuDowm(1)">
+                <div class="menu-drop-2-1 menu-drop-0-0"><span>二级菜单</span></div>
+                <div class="menu-drop-2-2 menu-drop-0-1"><span>二级菜单</span></div>
+                <div class="menu-drop-2-3 menu-drop-0-2"><span>二级菜单</span></div>
+                <div class="menu-drop-2-4 menu-drop-0-3"><span>二级菜单</span></div>
+            </div>
+            <div class="nav-menu-drop-3" id="nav-menu-drop-0" name="nav-menu-drop-div" onmouseover="showSecondeMenu(2)" onmouseout="showSecondeMenuDowm(2)">
+                <div class="menu-drop-3-1 menu-drop-0-0"><span>二级菜单</span></div>
+                <div class="menu-drop-3-2 menu-drop-0-1"><span>二级菜单</span></div>
+                <div class="menu-drop-3-3 menu-drop-0-2"><span>二级菜单</span></div>
+                <div class="menu-drop-3-4 menu-drop-0-3"><span>二级菜单</span></div>
+            </div>
+            
+        </div>
+    
+        <!-- 轮播图 -->
+        <div class="carousel">
+            <div class="img-arrange-1">
+                <div class="img-arrange-left">
+                    <span class="arrange-left-point" onclick="next()"></span>
+                </div>
+                
+                <div class="img-arrange-right">
+                    <span class="arrange-right-point" onclick="last()"></span>
+                </div>
+                <div class="img-arrange-cricle">
+                    <ul class="arrage-cricle-1">
+                        <li class="cricle-1-0"></li>
+                        <li class="cricle-1-0"></li>
+                        <li class="cricle-1-0"></li>
+                        <li class="cricle-1-0"></li>
+                    </ul>
+                    
+                </div>
+            </div>
+            <!-- <div class="img-arrange-1"><img class="img-1" src="img/20191004034706583.jpg" alt="" width="1100px"></div> -->
+            <!-- <div class="img-arrange-2"><img src="img/20200824111655146.jpg" alt=""width="1000px"></div>
+            <div class="img-arrange-3"><img src="img/20200622045712262.jpg" alt=""width="1000px"></div>
+            <div class="img-arrange-4"><img src="img/20200824113628645.jpg" alt=""width="1000px"></div> -->
+        </div>
+
+   
+        <!-- 介绍 -->
+        <div class="introduce">
+            <div class="introduce-1">
+                Success often depends upon knowing how long it will take to succeed.
+            </div>
+            <div class="introduce-2">
+                I might say that success is won by three things:first, effort; second, more effort; third, still more effort
+            </div>
+            
+
+        </div>
+        
+        <!-- 主要内容 -->
+        <div class="main">
+            <div class="main-image">
+                <div class="main-imge-1"></div>
+                <div class="main-imge-1"></div>
+                <div class="main-imge-1"></div>
+                <div class="main-imge-1"></div>
+                <div class="main-imge-1"></div>
+                <div class="main-imge-1"></div>
+            </div>
+            
+            <div class="main-content">
+                <div class="main-content-1"><h1>ABOUT</h1><div class="content-message">You have to believe in yourself. That's the secret of success.</div></div>
+                <div class="main-content-1"><h1>ABOUT</h1><div class="content-message">The important thing in life is to have a great aim  and the determination to attain it.</div></div>
+                <div class="main-content-1"><h1>ABOUT</h1><div class="content-message">You have to believe in yourself . That's the secret of success .</div></div>
+                <div class="main-content-1"><h1>ABOUT</h1><div class="content-message">Love between the very young is touching. Love between the very old is glory.</div></div>
+                <div class="main-content-1"><h1>Napoleon</h1><div class="content-message">The man who has made up his mind to win will never say "impossible ".</div></div>
+                <div class="main-content-1"><h1>Roosevelt</h1><div class="content-message">The only limit to our realization of tomorrow will be our doubts of today .</div></div>
+            </div>
+    
+            <div class="main-frame">
+                
+               <div class="frame-main">
+                    <div class="frame-main-0"><h1>FRAME</h1></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+                    <div class="frame-main-1"><span class="frame-main-1-0"></span></div>
+               </div>
+            </div>
+    
+        </div>
+    
+        <!-- 页脚 -->
+        <div class="footer"></div>
+    
+    </div>
+    <div id="content" class="mw-body" role="main"></div>
+</body>
+</html>
+
+
